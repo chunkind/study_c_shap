@@ -9,6 +9,8 @@ namespace Algorithm
             Board board = new Board();
             Player player = new Player();
             board.Initialize(25, player);
+            player.Initialize(1, 1, board.Size -2 , board.Size - 2 , board);//플레이어의 위치
+
             Console.CursorVisible = false; // 커서 없애기.
 
             const int WAIT_TICK = 1000 / 30;
@@ -21,12 +23,14 @@ namespace Algorithm
                 int currentTick = System.Environment.TickCount;
                 if ( currentTick - lastTick < WAIT_TICK)
                     continue;
+                int deltaTick = currentTick - lastTick;
                 lastTick = currentTick;
                 #endregion
 
                 // 입력
 
                 // 로직
+                player.Update(deltaTick);
 
                 // 렌더링
                 Console.SetCursorPosition(0, 0);
