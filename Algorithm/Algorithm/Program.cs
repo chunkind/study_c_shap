@@ -9,7 +9,7 @@ namespace Algorithm
             Board board = new Board();
             Player player = new Player();
             board.Initialize(25, player);
-            player.Initialize(1, 1, board.Size -2 , board.Size - 2 , board);//플레이어의 위치
+            player.Initialize(1, 1, board);//플레이어의 위치
 
             Console.CursorVisible = false; // 커서 없애기.
 

@@ -117,6 +117,8 @@ namespace Algorithm
         const char CIRCLE = '\u25cf';
         public TileType[,] Tile { get; private set; }
         public int Size { get; private set; }
+        public int DestX { get; private set; }
+        public int DestY { get; private set; }
 
         Player _player;
 
@@ -135,6 +137,9 @@ namespace Algorithm
 
             Tile = new TileType[size, size];
             Size = size;
+
+            DestX = Size - 2;
+            DestY = Size - 2;
 
             // Mazes for Programmers : 미로관련 서적
             // Binary Tree Algorithm
@@ -168,7 +173,7 @@ namespace Algorithm
             {
                 for (int x = 0; x < Size; x++)
                 {
-                    //if(x==0 || x==Size-1 || y==0 || y == size - 1)
+                    //if(x==0 || x==Size-1 || y==0 || y == Size - 1)
                     if (x % 2 == 0 || y % 2 == 0)
                         Tile[y, x] = TileType.Wall;
                     else
@@ -280,6 +285,8 @@ namespace Algorithm
                     // 플레이어 좌표를 갖고 와서, 그 좌표랑 현재 y, x가 일치하면 플레이어 전용 색상으로 표시.
                     if( y == _player.PosY && x == _player.PosX)
                         Console.ForegroundColor = ConsoleColor.Blue;
+                    else if(y == DestY && x == DestX)
+                        Console.ForegroundColor = ConsoleColor.Yellow;
                     else
                         Console.ForegroundColor = GetTileColor(Tile[y, x]);
                     
