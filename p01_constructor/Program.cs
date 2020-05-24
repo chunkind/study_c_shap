@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace constructor
+namespace p01_constructor
 {
     class Knight
     {
@@ -31,7 +31,7 @@ namespace constructor
     {
         static void Main(string[] args)
         {
-            Knight k01 = new Knight(10,1);
+            Knight k01 = new Knight(10, 1);
         }
     }
 }
