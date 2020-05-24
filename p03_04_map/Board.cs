@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.Drawing;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace p03_04_map
 {
-
     class Board
     {
         const char CIRCLE = '\u25cf';
@@ -23,12 +21,11 @@ namespace p03_04_map
         {
             _tile = new TileType[size, size];
             _size = size;
-
             for(int y = 0; y < _size; y++)
             {
-                for(int x=0; x<_size; x++)
+                for(int x = 0; x < _size; x++)
                 {
-                    if (x == 0 || x == _size - 1 || y == 0 || y == size - 1)
+                    if (x == 0 || x == _size - 1 || y == 0 || y == _size - 1)
                         _tile[y, x] = TileType.Wall;
                     else
                         _tile[y, x] = TileType.Empty;
@@ -39,7 +36,6 @@ namespace p03_04_map
         public void Render()
         {
             ConsoleColor prevColor = Console.ForegroundColor;
-
             for (int y = 0; y < _size; y++)
             {
                 for (int x = 0; x < _size; x++)

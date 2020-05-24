@@ -1,6 +1,11 @@
 ﻿using System;
+using System.Drawing;
 
-namespace p03_04_map
+/**
+ * 길찾기 알고리즘 참조 도서
+ * Mazes for Programmers
+ */
+namespace p03_05_binary_tree_maze
 {
     class Program
     {
@@ -8,12 +13,12 @@ namespace p03_04_map
         {
             Board board = new Board();
             board.Initialize(25);
-            Console.CursorVisible = false; // 커서 없애기.
+            Console.CursorVisible = false;
             const int WAIT_TICK = 1000 / 30;
             int lastTick = 0;
-            while (true) // FPS 프레임 ( 60프레임 OK 30프레임 이하로 NO )
+            while (true)
             {
-                #region 프레임 관리
+                #region 프레임 설정
                 int currentTick = System.Environment.TickCount;
                 if (currentTick - lastTick < WAIT_TICK)
                     continue;
@@ -21,9 +26,8 @@ namespace p03_04_map
                 #endregion
 
                 //랜더링
-                Console.SetCursorPosition(0, 0); //커서 위치 변경
+                Console.SetCursorPosition(0, 0);
                 board.Render();
-
             }
         }
     }
