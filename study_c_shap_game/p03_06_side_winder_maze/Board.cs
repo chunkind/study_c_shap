@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace p03_05_binary_tree_maze
+namespace p03_06_side_winder_maze
 {
     class Board
     {
@@ -24,23 +23,16 @@ namespace p03_05_binary_tree_maze
             _tile = new TileType[size, size];
             _size = size;
 
-            
-
-            //우측 혹은 아래로 길을 뚫는 작업
-            //Binary Tree Algorithm
-            GenerateByBinaryTree();
+            GenerateBySideWinder();
         }
 
-        void GenerateByBinaryTree()
+        void GenerateBySideWinder()
         {
             //길 막기 작업
             for (int y = 0; y < _size; y++)
             {
                 for (int x = 0; x < _size; x++)
                 {
-                    //old
-                    //if (x == 0 || x == _size - 1 || y == 0 || y == _size - 1)
-                    //new : 모든영역 매꾸기 위,아래,오른쪽,왼쪽 막기
                     if (x % 2 == 0 || y % 2 == 0)
                         _tile[y, x] = TileType.Wall;
                     else
@@ -51,6 +43,7 @@ namespace p03_05_binary_tree_maze
             Random rand = new Random();
             for (int y = 0; y < _size; y++)
             {
+                int count = 1;
                 for (int x = 0; x < _size; x++)
                 {
                     if (x % 2 == 0 || y % 2 == 0)
@@ -74,10 +67,13 @@ namespace p03_05_binary_tree_maze
                     if (rand.Next(0, 2) == 0)
                     {
                         _tile[y, x + 1] = TileType.Empty;
+                        count++;
                     }
                     else
                     {
-                        _tile[y + 1, x] = TileType.Empty;
+                        int randomIndex = rand.Next(0, count);
+                        _tile[y + 1, x - randomIndex * 2] = TileType.Empty;
+                        count = 1;
                     }
                 }
             }
