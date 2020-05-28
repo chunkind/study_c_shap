@@ -24,8 +24,6 @@ namespace p03_05_binary_tree_maze
             _tile = new TileType[size, size];
             _size = size;
 
-            
-
             //우측 혹은 아래로 길을 뚫는 작업
             //Binary Tree Algorithm
             GenerateByBinaryTree();
