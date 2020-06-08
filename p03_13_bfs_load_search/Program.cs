@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Test
+namespace p03_13_bfs_load_search
 {
     class Program
     {
@@ -20,9 +20,9 @@ namespace Test
             {
                 #region 프레임 설정
                 int currentTick = System.Environment.TickCount;
-                if (currentTick - lastTick < WAIT_TICK)
-                    continue;
                 int deltaTick = currentTick - lastTick;
+                if (deltaTick < WAIT_TICK)
+                    continue;
                 lastTick = currentTick;
                 #endregion
 
@@ -30,10 +30,10 @@ namespace Test
 
                 //로직
                 player.Update(deltaTick);
-
                 //랜더링
                 Console.SetCursorPosition(0, 0);
                 board.Render();
+                Console.WriteLine("FPS : " + deltaTick + "          ");
             }
         }
     }
