@@ -8,8 +8,13 @@ namespace p03_08_right_hand_rule
     class Board
     {
         const char CIRCLE = '\u25cf';
-        int _size;
-        public TileType[,] _tile;
+        public TileType[,] Tile { get; private set; }
+        public int Size { get; private set; }
+
+        public int DestY { get; private set; }
+        public int DestX { get; private set; }
+
+        Player _player;
 
         public enum TileType
         {
@@ -19,59 +24,68 @@ namespace p03_08_right_hand_rule
 
         public void Initialize(int size, Player player)
         {
-            _size = size;
-            _tile = new TileType[size, size];
+            if (size % 2 == 0)
+                return;
 
+            _player = player;
+
+            Tile = new TileType[size, size];
+            Size = size;
+
+            DestY = Size - 2;
+            DestX = Size - 2;
+
+            // Mazes for Programmers
             GenerateBySideWinder();
         }
 
-        public void GenerateBySideWinder()
+        void GenerateBySideWinder()
         {
             //길막기 작업
-            for (int y = 0; y < _size; y++)
+            for (int y = 0; y < Size; y++)
             {
-                for (int x = 0; x < _size; x++)
+                for (int x = 0; x < Size; x++)
                 {
                     if (x % 2 == 0 || y % 2 == 0)
-                        _tile[y, x] = TileType.Wall;
+                        Tile[y, x] = TileType.Wall;
                     else
-                        _tile[y, x] = TileType.Empty;
+                        Tile[y, x] = TileType.Empty;
                 }
             }
 
             Random rand = new Random();
-            for (int y = 0; y < _size; y++)
+            for (int y = 0; y < Size; y++)
             {
                 int count = 1;
-                for (int x = 0; x < _size; x++)
+                for (int x = 0; x < Size; x++)
                 {
                     if (x % 2 == 0 || y % 2 == 0)
                         continue;
 
-                    if (y == _size - 2 && x == _size - 2)
+                    if (y == Size - 2 && x == Size - 2)
                         continue;
 
-                    if (y == _size - 2)
+                    if (y == Size - 2)
                     {
-                        _tile[y, x + 1] = TileType.Empty;
+                        Tile[y, x + 1] = TileType.Empty;
                         continue;
                     }
 
-                    if (x == _size - 2)
+                    if (x == Size - 2)
                     {
-                        _tile[y + 1, x] = TileType.Empty;
+                        Tile[y + 1, x] = TileType.Empty;
                         continue;
                     }
 
-                    int randomeIndex = rand.Next(0, count);
                     if (rand.Next(0, 2) == 0)
                     {
-                        _tile[y, x + 1] = TileType.Empty;
+                        Tile[y, x + 1] = TileType.Empty;
                         count++;
                     }
                     else
                     {
-                        _tile[y + 1, x - randomeIndex * 2] = TileType.Empty;
+                        int randomeIndex = rand.Next(0, count);
+                        Tile[y + 1, x - randomeIndex * 2] = TileType.Empty;
                         count = 1;
                     }
 
@@ -82,11 +96,16 @@ namespace p03_08_right_hand_rule
         public void Render()
         {
             ConsoleColor df = Console.ForegroundColor;
-            for (int y=0; y<_size; y++)
+            for (int y=0; y< Size; y++)
             {
-                for(int x=0; x<_size; x++)
+                for(int x=0; x< Size; x++)
                 {
-                    Console.ForegroundColor = GetTileColor(_tile[y, x]);
+                    if (y == _player.PosY && x == _player.PosX)
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                    else if (y == DestY && x == DestY)
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                    else
+                        Console.ForegroundColor = GetTileColor(Tile[y, x]);
                     Console.Write(CIRCLE);
                 }
                 Console.WriteLine();

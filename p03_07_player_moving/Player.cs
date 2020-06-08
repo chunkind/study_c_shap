@@ -46,7 +46,7 @@ namespace p03_07_player_moving
                             PosX = PosX - 1;
                         break;
                     case 3: //우
-                        if (PosX +1 <= _board.Size && _board.Tile[PosY, PosX + 1] == Board.TileType.Empty)
+                        if (PosX + 1 <= _board.Size && _board.Tile[PosY, PosX + 1] == Board.TileType.Empty)
                             PosX = PosX + 1;
                         break;
                 }
