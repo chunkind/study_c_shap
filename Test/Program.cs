@@ -2,38 +2,38 @@
 
 namespace Test
 {
+    /*
+               (15)     (5)
+            0   ―   1  ―  2
+
+               (35) (10)
+                ＼   ｜
+                     3
+
+                    (5)
+                     ｜  
+                        (5)
+                     4  ―  5
+    */
     class Program
     {
+        int[,] adj = new int [6, 6]{
+            { -1, 15, -1, 35, -1, -1 },
+            { 15, -1, 05, 10, -1, -1 },
+            { -1, 05, -1, -1, -1, -1 },
+            { 35, 10, -1, -1, 05, -1 },
+            { -1, -1, -1, 05, -1, 05 },
+            { -1, -1, -1, -1, 05, -1 },
+        };
         static void Main(string[] args)
         {
-            Board board = new Board();
-            Player player = new Player();
-            board.Initialize(25, player);
-            player.Initialize(1, 1, board);
-
-            Console.CursorVisible = false;
-
-            const int WAIT_TICK = 1000 / 30;
-
-            int lastTick = 0;
+            
             while (true)
             {
-                #region 프레임 설정
-                int currentTick = System.Environment.TickCount;
-                if (currentTick - lastTick < WAIT_TICK)
-                    continue;
-                int deltaTick = currentTick - lastTick;
-                lastTick = currentTick;
-                #endregion
-
-                //입력
-
-                //로직
-                player.Update(deltaTick);
-
-                //랜더링
-                Console.SetCursorPosition(0, 0);
-                board.Render();
+                for(int i=0; i<6; i++)
+                {
+                    adj
+                }
             }
         }
     }
